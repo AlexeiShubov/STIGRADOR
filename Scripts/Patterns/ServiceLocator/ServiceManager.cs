@@ -15,6 +15,7 @@ namespace STIGRADOR
                     var newGameObject = new GameObject("[ServiceManager]");
 
                     _instance = newGameObject.AddComponent<ServiceManager>();
+                    _instance.Initialize();
 
                     DontDestroyOnLoad(newGameObject);
                 }

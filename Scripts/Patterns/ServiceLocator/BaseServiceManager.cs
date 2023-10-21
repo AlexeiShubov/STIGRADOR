@@ -6,12 +6,13 @@ namespace STIGRADOR
     {
         protected ServiceLocator<IService> _serviceLocator;
 
-        protected void Awake()
+        protected void Initialize()
         {
             _serviceLocator = new ServiceLocator<IService>();
             
             _serviceLocator.ServiceRegister(CoroutineService.Instance);
             _serviceLocator.ServiceRegister(new StorageService());
+            _serviceLocator.ServiceRegister(new EventsService());
         }
 
         public abstract T GetService<T>() where T : IService;

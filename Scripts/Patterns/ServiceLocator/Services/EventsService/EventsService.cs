@@ -4,11 +4,16 @@ using UnityEngine;
 
 namespace STIGRADOR
 {
-    public static class EventBus
+    public sealed class EventsService : IService
     {
-        private static Dictionary<Type, List<object>> _signalsMap = new Dictionary<Type, List<object>>();
+        private readonly Dictionary<Type, List<object>> _signalsMap;
 
-        public static void RegisterListener<T>(Action<T> listener) where T : ISignal
+        public EventsService()
+        {
+            _signalsMap = new Dictionary<Type, List<object>>();
+        }
+
+        public void RegisterListener<T>(Action<T> listener) where T : ISignal
         {
             var type = typeof(T);
 
@@ -22,7 +27,7 @@ namespace STIGRADOR
             }
         }
 
-        public static void UnregisterListener<T>(Action<T> listener) where T : ISignal
+        public void UnregisterListener<T>(Action<T> listener) where T : ISignal
         {
             var type = typeof(T);
 
@@ -40,7 +45,7 @@ namespace STIGRADOR
             }
         }
 
-        public static void Invoke<T>(T signal) where T : ISignal
+        public void Invoke<T>(T signal) where T : ISignal
         {
             var type = typeof(T);
 
